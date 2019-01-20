@@ -15,11 +15,36 @@ public class PageController
 		
 		
 		ModelAndView mv = new ModelAndView("page");
-		mv.addObject("greeting", "Welcome to Spring MVC Project");
+		//mv.addObject("greeting", "Welcome to Spring MVC Project");
+		mv.addObject("title","Home");
+		mv.addObject("userClickHome", true);
 		return mv;
 	}
 	
 	
+	//mapping for contact href
+	@RequestMapping(value="/about")
+	public ModelAndView about()
+	{
+				
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title","About us");
+		mv.addObject("userClickAbout", true);
+		return mv;
+	}
+	
+	
+	//maping for contact
+	@RequestMapping(value="/contact")
+	public ModelAndView contact()
+	{
+		
+		
+		ModelAndView mv = new ModelAndView("page");		
+		mv.addObject("title","Contact Us");
+		mv.addObject("userClickContact", true);
+		return mv;
+	}
 	
 
 }
