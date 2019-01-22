@@ -25,51 +25,82 @@
 
 <title>Online Shopping ${title}</title>
 
+
+<script>
+	window.menu = '${title}';
+</script>
 <!-- Bootstrap core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="${css}/myapp.css" rel="stylesheet">
 
+
+<!-- theme addition -->
+
+<link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
 </head>
 
 <body>
 
-	<!-- Navigation -->
+	<div class="wrapper">
 
-	<%@ include file="./shared/navbar.jsp"%>
+		<!-- Navigation -->
 
-
-	<!-- Page Content -->
-	<!--  Loading the Page COntent -->
-	
-	
-	<!-- test  for home jsp page -->
-	<c:if test="${userClickHome == true }">
-		<%@ include file="home.jsp"%>
-	</c:if>
-	
-	<!-- test  for about us jsp page -->
-	<c:if test="${userClickAbout == true }">
-		<%@ include file="about.jsp"%>
-	</c:if>
-	
-	
-	<!-- test  for contact us jsp page -->
-	<c:if test="${userClickContact == true }">
-		<%@ include file="contact.jsp"%>
-	</c:if>
-	
-	<!-- Footer -->
-	
-	
-
-	<%@include file="./shared/footer.jsp"%>
+		<%@ include file="./shared/navbar.jsp"%>
 
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="${js}/jquery.js"></script>
-	<script src="${js}/bootstrap.bundle.min.js"></script>
+		<!-- Page Content -->
+
+		<div class="content">
+			<!--  Loading the Page COntent -->
+
+
+			<!-- test  for home jsp page -->
+			<c:if test="${userClickHome == true }">
+				<%@ include file="home.jsp"%>
+			</c:if>
+
+			<!-- test  for about us jsp page -->
+			<c:if test="${userClickAbout == true }">
+				<%@ include file="about.jsp"%>
+			</c:if>
+
+
+			<!-- test  for contact us jsp page -->
+			<c:if test="${userClickContact == true }">
+				<%@ include file="contact.jsp"%>
+			</c:if>
+
+
+			<!-- test  for contact us jsp page -->
+			<c:if test="${userClickAllProducts == true or userClickCategoryProducts == true }">
+				<%@ include file="listProducts.jsp"%>
+			</c:if>
+
+
+
+
+                   
+
+		</div>
+		<!-- Footer -->
+
+
+
+		<%@include file="./shared/footer.jsp"%>
+
+
+		<!-- Bootstrap core JavaScript -->
+		<script src="${js}/jquery.js"></script>
+		<script src="${js}/bootstrap.bundle.min.js"></script>
+
+		<!-- my own javascript code  -->
+		<script src="${js}/myapp.js"></script>
+
+
+
+	</div>
 
 </body>
 
