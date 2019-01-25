@@ -6,9 +6,23 @@ import net.kzn.Onlineshopping.model.Category;
 
 public interface CategoryService {
 	
+	
+	//to get a category
+	Category get(int id);
+	
+	//to get list of category
 	public List<Category> getCategoryList();
 	
-	//get the products on given id
-	Category get(int id);
-
+	
+	//to add a category to the database
+	boolean add(Category category);
+	
+	//to update a category
+	boolean update(Category category);
+	
+	
+	//to delete a category 
+	boolean delete(Category category);
+	
+	
 }

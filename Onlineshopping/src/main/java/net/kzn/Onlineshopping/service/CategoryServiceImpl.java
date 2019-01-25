@@ -1,54 +1,109 @@
 package net.kzn.Onlineshopping.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.kzn.Onlineshopping.model.Category;
 
-@Service
+@Repository("categoryService")
+@Transactional
 public class CategoryServiceImpl implements CategoryService
 {
-	
-	
-	static List<Category> categories = new ArrayList<Category>();
-	
-	
-	static {
-                
-		Category cat1 = new Category();
-		cat1.setId(1);	
-	    cat1.setName("Laptop");	    
-	    categories.add(cat1);
-	    
-	    
-	    
-	    cat1 = new Category();
-		cat1.setId(2);	
-		  cat1.setName("Pen");
-	    
-	    categories.add(cat1);
-
+	@Autowired
+	private SessionFactory sessionFactory;
+		
+	public List<Category> getCategoryList()	{
+		
+		
+		//hql command:
+		String selectActiveCategory = "FROM Category WHERE active =:active";
+		
+		
+		Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategory);
+		
+		query.setParameter("active", true);
+		
+		return query.getResultList();
+		
 	}
-	public List<Category> getCategoryList()
+	public Category get(int id) 
 	{
-		
-		return categories;
-		
-		
-	}
-
-	public Category get(int id) {
 	
-		
+		/*
 		//enhanced for loop for id iteration
 		for(Category category : categories)
 		{
 			if (category.getId()  ==  id) return  category;
 		}
-		return null;
+		*/
+			
+		return sessionFactory.getCurrentSession().get(Category.class,Integer.valueOf(id));
+	}
+
+	
+	
+	public boolean add(Category category) 
+	{
+		
+		try
+		{
+			
+			sessionFactory.getCurrentSession().persist(category);
+			
+			
+			return true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+			
+		}
+	}
+	
+	
+	
+
+	// for updating asingle category
+	public boolean update(Category category) 
+	{
+		try
+		{			
+			sessionFactory.getCurrentSession().update(category);					
+			return true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+			
+		}
+		
+	}
+	
+	
+
+	public boolean delete(Category category)
+	{
+     category.setActive(false);
+		
+		try
+		{			
+			sessionFactory.getCurrentSession().update(category);					
+			return true;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return false;
+			
+		}
+		
 	}
 
 }

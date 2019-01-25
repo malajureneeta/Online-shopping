@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.kzn.Onlineshopping.model.Category;
+import net.kzn.Onlineshopping.model.Product;
 import net.kzn.Onlineshopping.service.CategoryService;
+import net.kzn.Onlineshopping.service.ProductService;
 
 @Controller
 public class PageController 
@@ -16,6 +18,10 @@ public class PageController
 	//get the ref of CategoryService
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private ProductService productService;
+	
 	
 	
 	@RequestMapping(value= {"/", "/home","/index"})
@@ -28,7 +34,7 @@ public class PageController
 		mv.addObject("title","Home");
 		
 		//passing the list of categories to the ui
-		mv.addObject("categoryList",categoryService.getCategoryList());
+		mv.addObject("categories",categoryService.getCategoryList());
 		mv.addObject("userClickHome", true);
 		return mv;
 	}
@@ -99,4 +105,51 @@ public class PageController
 		return mv;
 	
 	}
+	
+	
+	//for image view and add requestmapping
+	
+	
+	//for the product view request
+	@RequestMapping(value="/show/{id}/product")
+	public ModelAndView showSingleProduct(@PathVariable int id)
+	{
+		
+		ModelAndView mv = new ModelAndView("page"); //master page
+		
+		
+		//get the product class ref
+		Product product = productService.get(id);
+		
+		
+		//update the views count from product
+		product.setViews(product.getViews() +1);
+		productService.update(product);
+		
+		
+		//title of the product selection
+		mv.addObject("title",product.getName());
+		mv.addObject("product", product);
+		
+		mv.addObject("userClickShowProduct", true);
+		
+		
+		return mv;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

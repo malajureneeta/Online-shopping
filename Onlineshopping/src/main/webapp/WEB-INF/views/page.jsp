@@ -28,17 +28,27 @@
 
 <script>
 	window.menu = '${title}';
+	
+	window.contextroot = '${contextroot}';
+	
+	
 </script>
+
+
+
 <!-- Bootstrap core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
+<!-- my Theme ref -->
+<link href="${css}/theme.css" rel="stylesheet">
+
+<!--  now changing it ot bootstrap datatable theme -->
+
+<link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
 <!-- Custom styles for this template -->
 <link href="${css}/myapp.css" rel="stylesheet">
-
-
-<!-- theme addition -->
-
-<link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
 </head>
 
 <body>
@@ -74,26 +84,41 @@
 
 
 			<!-- test  for contact us jsp page -->
-			<c:if test="${userClickAllProducts == true or userClickCategoryProducts == true }">
+			<c:if
+				test="${userClickAllProducts == true or userClickCategoryProducts == true }">
 				<%@ include file="listProducts.jsp"%>
 			</c:if>
 
 
 
+              <!-- test  for the click of singleproduct jsp apge -->
+			<c:if
+				test="${userClickShowProduct== true}">
+				<%@ include file="singleProduct.jsp"%>
+			</c:if>
+ 
 
-                   
+
+
 
 		</div>
 		<!-- Footer -->
 
-
-
 		<%@include file="./shared/footer.jsp"%>
 
 
-		<!-- Bootstrap core JavaScript -->
+		<!-- Juqery JavaScript -->
 		<script src="${js}/jquery.js"></script>
+
+
+		<!--  bootstrp  core javascript  -->
 		<script src="${js}/bootstrap.bundle.min.js"></script>
+
+
+
+
+		<!--  Datatable bootstrap  js ref -->
+		<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 		<!-- my own javascript code  -->
 		<script src="${js}/myapp.js"></script>
